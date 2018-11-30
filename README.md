@@ -42,3 +42,11 @@ if _, ok := data.(*wav.StereoData); ok {
   fmt.Println(monoData.Sample)
 }
 ```
+
+### Todo
+
+- More wav file details
+- Converter
+- Raw Waveform
+- Waveform image customization
+- Test
