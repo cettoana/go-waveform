@@ -13,7 +13,7 @@ Generate waveform image via CLI
 
 ```bash
 make
-./bin/go-waveform -r 1000 -f png example/violin.wav
+./bin/go-waveform -t dark -r 1000 -f png example/violin.wav
 
 open example/violin-L.png
 open example/violin-R.png
