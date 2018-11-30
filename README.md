@@ -35,10 +35,10 @@ fmt.Println(w.BitsPerSample)
 
 data, _ := w.GetData()
 
-if _, ok := data.(*wav.StereoData); ok {
+if stereoData, ok := data.(*wav.StereoData); ok {
   fmt.Println(stereoData.RSample)
   fmt.Println(stereoData.LSample)
-} else if _, ok := data.(*wav.MonoData); ok {
+} else if monoData, ok := data.(*wav.MonoData); ok {
   fmt.Println(monoData.Sample)
 }
 ```
