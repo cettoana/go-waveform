@@ -1,29 +1,29 @@
 package waveform
 
-// AudioFormat type
-type AudioFormat uint16
+// WaveFormat type
+type WaveFormat uint16
 
-// Audio formats from the format chunk, byte[20:22]
+// WaveFormat wave format tag
 const (
-	PCMInteger           AudioFormat = 1
-	ADPCM                            = 2
-	PCMFloating                      = 3
-	ULaw                             = 7
-	WaveFormatExtensible             = 65534
+	WaveFormatPCM        WaveFormat = 0x0001
+	WaveFormatIEEEFloat             = 0x0003
+	WaveFormatALaw                  = 0x0006
+	WaveFormatMULaw                 = 0x0007
+	WaveFormatExtensible            = 0xFFFE
 )
 
-func (f AudioFormat) String() string {
+func (f WaveFormat) String() string {
 	switch f {
 	case 1:
-		return "Integer PCM"
-	case 2:
-		return "ADPCM"
+		return "PCM"
 	case 3:
-		return "Floating-point PCM"
+		return "IEEE Float"
+	case 6:
+		return "A-lAW"
 	case 7:
 		return "μ-law"
 	case 65534:
-		return "WaveFormatExtensible"
+		return "SubFormat"
 	default:
 		return "Unknown"
 	}

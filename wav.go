@@ -4,7 +4,7 @@ import "errors"
 
 // Wav struct
 type Wav struct {
-	AudioFormat   AudioFormat
+	WaveFormat    WaveFormat
 	NumChannels   uint16
 	SampleRate    uint32
 	BitsPerSample uint16
@@ -16,14 +16,14 @@ type Wav struct {
 // GetData get wav audio data
 func (w *Wav) GetData() (interface{}, error) {
 	bytePerSample := int(w.BitsPerSample / 8)
-	sampleParser, err := GetSampleParser(w.BitsPerSample, w.AudioFormat)
+	sampleParser, err := GetSampleParser(w.BitsPerSample, w.WaveFormat)
 	if err != nil {
 		return nil, err
 	}
 
 	if w.NumChannels == 1 {
 		sample := parseMonoSample(w.Data, bytePerSample, sampleParser)
-		bound, err := GetBound(w.BitsPerSample, w.AudioFormat)
+		bound, err := GetBound(w.BitsPerSample, w.WaveFormat)
 		if err != nil {
 			return nil, err
 		}
@@ -34,7 +34,7 @@ func (w *Wav) GetData() (interface{}, error) {
 
 	if w.NumChannels == 2 {
 		sample := parseStereoSample(w.Data, bytePerSample, sampleParser)
-		bound, err := GetBound(w.BitsPerSample, w.AudioFormat)
+		bound, err := GetBound(w.BitsPerSample, w.WaveFormat)
 		if err != nil {
 			return nil, err
 		}

@@ -25,15 +25,15 @@ type Bound struct {
 }
 
 // GetBound get sample value bound
-func GetBound(bitsPerSample uint16, audioFormat AudioFormat) (*Bound, error) {
-	if audioFormat == PCMFloating {
+func GetBound(bitsPerSample uint16, waveFormat WaveFormat) (*Bound, error) {
+	if waveFormat == WaveFormatIEEEFloat {
 		return &Bound{
 			Upper: 1.0,
 			Lower: -1.0,
 		}, nil
 	}
 
-	if audioFormat == PCMInteger {
+	if waveFormat == WaveFormatPCM {
 		if bitsPerSample == 8 {
 			return &Bound{
 				Upper: 255,

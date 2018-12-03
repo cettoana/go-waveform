@@ -11,7 +11,7 @@ type Parser func([]byte) float64
 
 // DecodeWav decode wav file information from bytes
 func DecodeWav(bytes []byte) *Wav {
-	audioFormat := AudioFormat(binary.LittleEndian.Uint16(bytes[20:22]))
+	waveFormat := WaveFormat(binary.LittleEndian.Uint16(bytes[20:22]))
 
 	numChannels := binary.LittleEndian.Uint16(bytes[22:24])
 
@@ -39,7 +39,7 @@ func DecodeWav(bytes []byte) *Wav {
 	data := bytes[dataStart : dataStart+dataSize]
 
 	return &Wav{
-		AudioFormat:   audioFormat,
+		WaveFormat:    waveFormat,
 		NumChannels:   numChannels,
 		SampleRate:    sampleRate,
 		BitsPerSample: bitsPerSample,
@@ -76,8 +76,8 @@ func float64BitsParser(b []byte) float64 {
 }
 
 // GetSampleParser get sample parser
-func GetSampleParser(bitsPerSample uint16, audioFormat AudioFormat) (func([]byte) float64, error) {
-	if audioFormat == PCMInteger {
+func GetSampleParser(bitsPerSample uint16, waveFormat WaveFormat) (func([]byte) float64, error) {
+	if waveFormat == WaveFormatPCM {
 		if bitsPerSample == 8 {
 			return int8BitsParser, nil
 		}
@@ -91,7 +91,7 @@ func GetSampleParser(bitsPerSample uint16, audioFormat AudioFormat) (func([]byte
 		}
 	}
 
-	if audioFormat == PCMFloating {
+	if waveFormat == WaveFormatIEEEFloat {
 		if bitsPerSample == 32 {
 			return float32BitsParser, nil
 		}

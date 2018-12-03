@@ -82,7 +82,7 @@ func main() {
 
 			w := waveform.DecodeWav(b)
 
-			log.Info().Str("AudioFormat", w.AudioFormat.String()).Msg("fmt Chunk")
+			log.Info().Str("WaveFormat", w.WaveFormat.String()).Msg("fmt Chunk")
 			log.Info().Uint16("NumChannels", w.NumChannels).Msg("fmt Chunk")
 			log.Info().Uint32("SampleRate", w.SampleRate).Msg("fmt Chunk")
 			log.Info().Uint16("BitsPerSample", w.BitsPerSample).Msg("fmt Chunk")
