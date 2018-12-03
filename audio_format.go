@@ -1,4 +1,4 @@
-package wav
+package waveform
 
 // AudioFormat type
 type AudioFormat uint16

@@ -1,4 +1,4 @@
-package wav
+package waveform
 
 import "errors"
 
@@ -33,7 +33,7 @@ func GetBound(bitsPerSample uint16, audioFormat AudioFormat) (*Bound, error) {
 		}, nil
 	}
 
-	if audioFormat == 1 {
+	if audioFormat == PCMInteger {
 		if bitsPerSample == 8 {
 			return &Bound{
 				Upper: 255,

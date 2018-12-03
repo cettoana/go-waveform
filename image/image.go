@@ -32,7 +32,7 @@ type Option struct {
 
 // OutputWaveformImage output waveform image
 func OutputWaveformImage(data interface{}, option *Option) error {
-	var outputFn func(wav.Sample, *wav.Bound, *Option, string) error
+	var outputFn func(waveform.Sample, *waveform.Bound, *Option, string) error
 
 	if option.Style == "original" {
 		outputFn = outputOriginalWavefromImage
@@ -41,12 +41,12 @@ func OutputWaveformImage(data interface{}, option *Option) error {
 	}
 
 	switch data.(type) {
-	case *wav.MonoData:
-		mono := data.(*wav.MonoData)
+	case *waveform.MonoData:
+		mono := data.(*waveform.MonoData)
 
 		return outputFn(mono.Sample, mono.Bound, option, "")
-	case *wav.StereoData:
-		stereo := data.(*wav.StereoData)
+	case *waveform.StereoData:
+		stereo := data.(*waveform.StereoData)
 
 		if err := outputFn(stereo.LSample, stereo.Bound, option, "-L"); err != nil {
 			return err
@@ -58,7 +58,7 @@ func OutputWaveformImage(data interface{}, option *Option) error {
 	}
 }
 
-func outputOriginalWavefromImage(sample wav.Sample, bound *wav.Bound, option *Option, postfix string) error {
+func outputOriginalWavefromImage(sample waveform.Sample, bound *waveform.Bound, option *Option, postfix string) error {
 	var points plotter.XYs
 
 	p, err := plot.New()
@@ -97,7 +97,7 @@ func outputOriginalWavefromImage(sample wav.Sample, bound *wav.Bound, option *Op
 	return p.Save(vg.Points(5000), vg.Points(540), fileName)
 }
 
-func outputWaveformImage(sample wav.Sample, bound *wav.Bound, option *Option, postfix string) error {
+func outputWaveformImage(sample waveform.Sample, bound *waveform.Bound, option *Option, postfix string) error {
 	p, err := plot.New()
 	if err != nil {
 		return err

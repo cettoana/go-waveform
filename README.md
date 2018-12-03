@@ -30,15 +30,15 @@ import "github.com/cettoana/go-waveform"
 and decode wav audio file
 
 ```go
-w := wav.DecodeWav(wavFileBytes)
+w := waveform.DecodeWav(wavFileBytes)
 fmt.Println(w.BitsPerSample)
 
 data, _ := w.GetData()
 
-if stereoData, ok := data.(*wav.StereoData); ok {
+if stereoData, ok := data.(*waveform.StereoData); ok {
   fmt.Println(stereoData.RSample)
   fmt.Println(stereoData.LSample)
-} else if monoData, ok := data.(*wav.MonoData); ok {
+} else if monoData, ok := data.(*waveform.MonoData); ok {
   fmt.Println(monoData.Sample)
 }
 ```

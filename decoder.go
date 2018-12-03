@@ -1,4 +1,4 @@
-package wav
+package waveform
 
 import (
 	"encoding/binary"
@@ -77,7 +77,7 @@ func float64BitsParser(b []byte) float64 {
 
 // GetSampleParser get sample parser
 func GetSampleParser(bitsPerSample uint16, audioFormat AudioFormat) (func([]byte) float64, error) {
-	if audioFormat == 1 {
+	if audioFormat == PCMInteger {
 		if bitsPerSample == 8 {
 			return int8BitsParser, nil
 		}
@@ -91,7 +91,7 @@ func GetSampleParser(bitsPerSample uint16, audioFormat AudioFormat) (func([]byte
 		}
 	}
 
-	if audioFormat == 3 {
+	if audioFormat == PCMFloating {
 		if bitsPerSample == 32 {
 			return float32BitsParser, nil
 		}
