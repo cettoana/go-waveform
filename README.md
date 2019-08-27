@@ -7,12 +7,16 @@ Golang project for the purpose of practicing, understanding golang and audio fil
 
 ## Usage
 
+## Requirements
+
+Go 1.11 (Go Modules)
+
 ### Cli
 
 Generate waveform image via CLI
 
 ```bash
-make
+GO111MODULE=on make
 ./bin/go-waveform -t dark -r 1000 -f png example/violin.wav
 
 open example/violin-L.png
