@@ -9,7 +9,7 @@ import (
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"gopkg.in/urfave/cli.v2"
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
