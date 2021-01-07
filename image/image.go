@@ -13,12 +13,6 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-// XY struct
-type XY struct {
-	X float64
-	Y float64
-}
-
 // Option image option
 type Option struct {
 	Fast       bool
