@@ -40,19 +40,15 @@ func OutputWaveformImage(data interface{}, option *Option) error {
 		outputFn = outputWaveformImage
 	}
 
-	switch data.(type) {
+	switch data := data.(type) {
 	case *waveform.MonoData:
-		mono := data.(*waveform.MonoData)
-
-		return outputFn(mono.Sample, mono.Bound, option, "")
+		return outputFn(data.Sample, data.Bound, option, "")
 	case *waveform.StereoData:
-		stereo := data.(*waveform.StereoData)
-
-		if err := outputFn(stereo.LSample, stereo.Bound, option, "-L"); err != nil {
+		if err := outputFn(data.LSample, data.Bound, option, "-L"); err != nil {
 			return err
 		}
 
-		return outputFn(stereo.RSample, stereo.Bound, option, "-R")
+		return outputFn(data.RSample, data.Bound, option, "-R")
 	default:
 		return errors.New("sound system unsupport")
 	}
@@ -70,15 +66,19 @@ func outputOriginalWavefromImage(sample waveform.Sample, bound *waveform.Bound, 
 		m := int(math.Ceil(float64(len(sample)) / 100000))
 
 		for i := 0; i < len(sample); i += m {
-			points = append(points, XY{X: float64(i), Y: sample[i]})
+			points = append(points, plotter.XY{X: float64(i), Y: sample[i]})
 		}
 	} else {
 		for i, v := range sample {
-			points = append(points, XY{X: float64(i), Y: v})
+			points = append(points, plotter.XY{X: float64(i), Y: v})
 		}
 	}
 
 	l, err := plotter.NewLine(points)
+	if err != nil {
+		return err
+	}
+
 	l.LineStyle.Width = vg.Points(1)
 	l.LineStyle.Color = color.RGBA{G: 225, B: 255, A: 255}
 
@@ -191,8 +191,8 @@ func getXYs(x int, s []float64, floor float64) *plotter.XYs {
 	}
 
 	return &plotter.XYs{
-		XY{X: float64(x), Y: min},
-		XY{X: float64(x), Y: max},
+		{X: float64(x), Y: min},
+		{X: float64(x), Y: max},
 	}
 }
 
